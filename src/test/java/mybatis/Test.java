@@ -26,4 +26,12 @@ public class Test {
 		System.out.println(user);
 		session.close();
 	}
+	
+	@org.junit.Test
+	public void testManytoOne(){
+		SqlSession session = sessionFactory.openSession();
+		User user = session.selectOne("com.yonyou.mapping.userMapper.getUserAsso", 1);
+		System.out.println(user.getGroup());
+		session.close();
+	}
 }

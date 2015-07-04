@@ -5,6 +5,16 @@ public class User {
 	private int id;
 	private String name;
 	private int age;
+	private Group group;
+	
+	
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
 
 	public int getId() {
 		return id;

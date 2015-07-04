@@ -4,15 +4,22 @@
 例如namespace="com.yonyou.mapping.userMapper"就是com.yonyou.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
  -->
 <mapper namespace="com.yonyou.mapping.userMapper">
-    <!-- 在select标签中编写查询的SQL语句， 设置select标签的id属性为getUser，id属性值必须是唯一的，不能够重复
-    使用parameterType属性指明查询时使用的参数类型，resultType属性指明查询返回的结果集类型
-    resultType="me.gacl.domain.User"就表示将查询结果封装成一个User类的对象返回
-    User类就是users表所对应的实体类
-    -->
-    <!-- 
-        根据id查询得到一个user对象
-     -->
+    <!-- 在select标签中编写查询的SQL语句， 设置select标签的id属性为getUser，id属性值必须是唯一的，不能够重复-->
+    <!-- 根据id查询得到一个user对象-->
     <select id="getUser" parameterType="int"  resultType="com.yonyou.model.User">
-        select * from user where id=#{id}
+        select * from _user where id=#{id}
+    </select>
+    
+    <!-- 一対多 -->
+    <resultMap type="com.yonyou.model.User" id="GroupResultMap">
+    	<id column="id" property="id"/> 
+    	<association property="group" javaType="com.yonyou.model.Group" >
+    		<id column="_id" property="id"/>
+    		<!-- result的值会映射到对象中 --> 
+    		 <result column="_name" property="name"/>  
+    	</association> 
+    </resultMap>
+    <select id="getUserAsso" parameterType="int" resultMap="GroupResultMap">
+    	select u.*,g.* from _user u,_group g where u.id = g._id and g._id = #{id}
     </select>
 </mapper>
