@@ -12,7 +12,7 @@
     
     <!-- 多対一 begin -->
     <!-- 嵌套的resultMap -->
-    <!-- <resultMap type="User" id="GroupResultMap">
+    <!-- <resultMap type="User" id="UserResultMap">
     	<id column="id" property="id"/>
     	<result  column="age" property="age"/> 
     	<association property="group" javaType="com.yonyou.model.Group" >
@@ -21,7 +21,7 @@
     		 <result column="_name" property="name"/>  
     	</association> 
     </resultMap>
-    <select id="getUserAsso" parameterType="int" resultMap="GroupResultMap">
+    <select id="getUserAsso" parameterType="int" resultMap="UserResultMap">
     	select u.*,g.* from _user u,_group g where u.id = g._id and g._id = #{id}
     </select> -->
     <!-- 嵌套的select语句 -->
@@ -49,7 +49,19 @@
      </resultMap>
     <!-- 多対一 end -->
     
-    
+    <!-- 一对多  begin-->
+ 	<select id="getGroupAsso" parameterType="int" resultMap="GroupResultMapEx">
+    	select * from _user u,_group g where u.groupid = g._id and g._id = #{id}
+    </select>
+    <resultMap type="Group" id="GroupResultMapEx" extends="GroupResultMap">
+    	<collection property="users" javaType="java.util.List" ofType="User">
+    		 <id column="id" property="id"/>
+    		 <result column="name" property="name"/>
+    		 <result column="age" property="age"/>  
+    	</collection> 
+    </resultMap> 
+    <!-- 一对多  end -->
+	    
     <!-- 插入 insert -->
     <!-- 批量插入 -->
     <insert id="insertUsers" useGeneratedKeys="true" parameterType="java.util.List">

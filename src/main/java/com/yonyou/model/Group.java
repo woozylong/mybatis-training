@@ -6,7 +6,7 @@ public class Group {
 
 	private int id;
 	private String name;
-	List<User> users;
+	private List<User> users;
 	
 	public int getId() {
 		return id;
