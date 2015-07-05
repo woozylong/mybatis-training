@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 
+import com.yonyou.mapping.UserMapper;
 import com.yonyou.model.User;
 
 public class Test {
@@ -22,7 +23,7 @@ public class Test {
 	@org.junit.Test
 	public void testSingleSelect() {
 		SqlSession session = sessionFactory.openSession();
-		User user = session.selectOne("com.yonyou.mapping.userMapper.getUser", 1);
+		User user = session.selectOne("com.yonyou.mapping.UserMapper.getUser", 1);
 		System.out.println(user);
 		session.close();
 	}
@@ -30,8 +31,12 @@ public class Test {
 	@org.junit.Test
 	public void testManytoOne(){
 		SqlSession session = sessionFactory.openSession();
-		User user = session.selectOne("com.yonyou.mapping.userMapper.getUserAsso", 1);
+		User user = session.selectOne("com.yonyou.mapping.UserMapper.getUserAsso", 1);
 		System.out.println(user.getGroup());
+		//namespace和接口类名一致，这样可以使用getmapper
+		UserMapper userMapper = session.getMapper(UserMapper.class);
+		user = userMapper.getUserAsso(1);
+		System.out.println("usermapper:" + user.getGroup());
 		session.close();
 	}
 }

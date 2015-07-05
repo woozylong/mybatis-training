@@ -3,16 +3,17 @@
 <!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
 例如namespace="com.yonyou.mapping.userMapper"就是com.yonyou.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
  -->
-<mapper namespace="com.yonyou.mapping.userMapper">
+<mapper namespace="com.yonyou.mapping.UserMapper">
     <!-- 在select标签中编写查询的SQL语句， 设置select标签的id属性为getUser，id属性值必须是唯一的，不能够重复-->
     <!-- 根据id查询得到一个user对象-->
-    <select id="getUser" parameterType="int"  resultType="com.yonyou.model.User">
+    <select id="getUser" parameterType="int"  resultType="User">
         select * from _user where id=#{id}
     </select>
     
     <!-- 一対多 -->
-    <resultMap type="com.yonyou.model.User" id="GroupResultMap">
-    	<id column="id" property="id"/> 
+    <resultMap type="User" id="GroupResultMap">
+    	<id column="id" property="id"/>
+    	<result  column="age" property="age"/> 
     	<association property="group" javaType="com.yonyou.model.Group" >
     		<id column="_id" property="id"/>
     		<!-- result的值会映射到对象中 --> 
