@@ -3,6 +3,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="User" type="com.yonyou.model.User"/>
+		<typeAlias alias="Group" type="com.yonyou.model.Group"/>
 	</typeAliases>
     <environments default="development">
         <environment id="development">
