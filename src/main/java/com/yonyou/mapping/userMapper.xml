@@ -33,7 +33,10 @@
     </select>
      <resultMap type="User" id="StudentResultMap">
      	<id column="id" property="id"/>
-    	<result  column="age" property="age"/> 
+    	<result  column="age" property="age"/>
+    	<!-- columnn不能少，此列的值作为参数传递给要引用的select语句，如果要多个值可以写成column= “{prop1=col1,prop2=col2}”
+    		调用的时候在selectGroup中取#{propX}
+    	 --> 
     	<association column="groupid" property="group" javaType="Group" select="selectGroup"/>
      </resultMap>
      <resultMap type="Group" id="GroupResultMap">
