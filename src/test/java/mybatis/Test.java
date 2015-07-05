@@ -1,6 +1,7 @@
 package mybatis;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -45,6 +46,23 @@ public class Test {
 		System.out.println("step 2:");
 		user = userMapper.getUserAsso(1);
 		System.out.println("usermapper:" + user.getGroup());
+		session.close();
+	}
+	
+	@org.junit.Test
+	public void testInsert(){
+		SqlSession session = sessionFactory.openSession();
+		ArrayList<User> users = new ArrayList<User>();
+		User u1 = new User();
+		u1.setName("u1");
+		u1.setAge(22);
+		User u2 = new User();
+		u2.setName("u2");
+		u2.setAge(22);
+		users.add(u1);
+		users.add(u2);
+		session.insert("com.yonyou.mapping.UserMapper.insertUsers", users);
+		session.commit();//不能少
 		session.close();
 	}
 }
